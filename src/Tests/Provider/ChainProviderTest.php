@@ -19,12 +19,12 @@ class ChainProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \RingCaptcha\AppLookup\Exception\NotFoundException
-     * @expectedExceptionMessage Unable to found the "foo" app.
+     * @expectedExceptionMessage Unable to found the "com.mycompany.myapp" app.
      */
     public function testLookupWithoutProviders()
     {
         $provider = new ChainProvider();
-        $provider->lookup('foo');
+        $provider->lookup('com.mycompany.myapp');
     }
 
     /**
@@ -54,8 +54,8 @@ class ChainProviderTest extends \PHPUnit_Framework_TestCase
         $providerMockA
             ->expects($this->once())
             ->method('lookup')
-            ->with($this->equalTo('foo'))
-            ->will($this->throwException(new NotFoundException('foo')))
+            ->with($this->equalTo('com.mycompany.myapp'))
+            ->will($this->throwException(new NotFoundException('com.mycompany.myapp')))
         ;
 
         $providerMockB = $this->getMockBuilder('RingCaptcha\AppLookup\Provider\ProviderInterface')->getMock();
@@ -65,7 +65,7 @@ class ChainProviderTest extends \PHPUnit_Framework_TestCase
         $providerMockB
             ->expects($this->once())
             ->method('lookup')
-            ->with($this->equalTo('foo'))
+            ->with($this->equalTo('com.mycompany.myapp'))
             ->willReturn($app)
         ;
 
@@ -74,6 +74,6 @@ class ChainProviderTest extends \PHPUnit_Framework_TestCase
         $provider->addProvider($providerMockA);
         $provider->addProvider($providerMockB);
 
-        $this->assertEquals($app, $provider->lookup('foo'));
+        $this->assertEquals($app, $provider->lookup('com.mycompany.myapp'));
     }
 }
