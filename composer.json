@@ -1,0 +1,42 @@
+{
+    "name": "ringcaptcha/app-lookup",
+    "type": "library",
+    "description": "Search info about an app from the store",
+    "keywords": ["framework"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cristian Iturri",
+            "email": "cristian@ringcaptcha.com"
+        },
+        {
+            "name": "Diego Saint Esteben",
+            "email": "diego@ringcaptcha.com"
+        },
+        {
+            "name": "GitHub Community",
+            "homepage": "https://github.com/ringcaptcha/lookup/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "guzzlehttp/guzzle": "~4.0|~5.0",
+    },
+    "require-dev": {
+        "symfony/dom-crawler": "~2.6"
+    },
+    "suggest": {
+        "symfony/dom-crawler": ""
+    },
+    "autoload": {
+        "psr-4": {
+            "RingCaptcha\\AppLookup\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
