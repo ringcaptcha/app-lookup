@@ -74,7 +74,7 @@ class AppInfo implements \Serializable
 
     public function serialize()
     {
-        return serialize(array($this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots));
+        return serialize([$this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots]);
     }
 
     public function unserialize($data)

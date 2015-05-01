@@ -46,9 +46,9 @@ class GoogleProvider implements ProviderInterface
      */
     public function lookup($id)
     {
-        $response = $this->client->get(self::ENDPOINT, array(
-            'query' => array('id' => $id)
-        ));
+        $response = $this->client->get(self::ENDPOINT, [
+            'query' => ['id' => $id]
+        ]);
 
         if (404 === $response->getStatusCode()) {
             throw new NotFoundException($id);

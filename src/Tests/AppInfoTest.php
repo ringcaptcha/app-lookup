@@ -31,7 +31,7 @@ class AppInfoTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('MyCompany', $app->getOwner());
         $this->assertEquals('Lorem ipsum dolor sit amet.', $app->getDescription());
         $this->assertEquals('http//myapp.com/logo.png', $app->getBrand());
-        $this->assertEquals(array(), $app->getTags());
-        $this->assertEquals(array(), $app->getScreenshots());
+        $this->assertEquals([], $app->getTags());
+        $this->assertEquals([], $app->getScreenshots());
     }
 }

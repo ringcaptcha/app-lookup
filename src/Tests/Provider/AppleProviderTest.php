@@ -61,7 +61,7 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('WhatsApp Messenger', $app->getName());
         $this->assertEquals('WhatsApp Inc.', $app->getOwner());
         $this->assertEquals('http://is2.mzstatic.com/image/pf/us/r30/Purple5/v4/70/fe/f6/70fef6d6-2a32-ea81-18d9-b58f2e50a0ce/mzl.gskvkfhf.png', $app->getBrand());
-        $this->assertEquals(array('social networking', 'utilities'), $app->getTags());
+        $this->assertEquals(['social networking', 'utilities'], $app->getTags());
         $this->assertNotNull($app->getDescription());
         $this->assertCount(5, $app->getScreenshots());
     }
