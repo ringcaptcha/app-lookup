@@ -23,7 +23,7 @@
         "guzzlehttp/guzzle": "~4.0|~5.0"
     },
     "require-dev": {
-        "symfony/dom-crawler": "~2.6"
+        "symfony/dom-crawler": "~2.3"
     },
     "suggest": {
         "symfony/dom-crawler": ""
