@@ -45,9 +45,9 @@ class AppleProvider implements ProviderInterface
      */
     public function lookup($id)
     {
-        $response = $this->client->get(self::ENDPOINT, [
-            'query' => ['id' => $id]
-        ]);
+        $response = $this->client->get(self::ENDPOINT, array(
+            'query' => array('id' => $id)
+        ));
 
         $data = $response->json();
 
