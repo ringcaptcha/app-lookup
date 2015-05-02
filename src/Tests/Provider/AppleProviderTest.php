@@ -36,7 +36,7 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
         $providerMock
             ->expects($this->once())
             ->method('exec')
-            ->with($this->equalTo('https://itunes.apple.com/lookup?id=com.mycompany.myapp'), $this->anything())
+            ->with($this->equalTo('https://itunes.apple.com/lookup?id=com.mycompany.myapp&bundleId=com.mycompany.myapp'), $this->anything())
             ->willReturn(file_get_contents(self::$fixturesPath.'/json/response0.json'))
         ;
 
@@ -53,7 +53,7 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
         $providerMock
             ->expects($this->once())
             ->method('exec')
-            ->with($this->equalTo('https://itunes.apple.com/lookup?id=net.whatsapp.WhatsApp'), $this->anything())
+            ->with($this->equalTo('https://itunes.apple.com/lookup?id=net.whatsapp.WhatsApp&bundleId=net.whatsapp.WhatsApp'), $this->anything())
             ->willReturn(file_get_contents(self::$fixturesPath.'/json/response1.json'))
         ;
 
