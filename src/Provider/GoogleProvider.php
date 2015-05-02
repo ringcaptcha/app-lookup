@@ -11,8 +11,6 @@
 
 namespace RingCaptcha\AppLookup\Provider;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use RingCaptcha\AppLookup\AppInfo;
 use RingCaptcha\AppLookup\Exception\NotFoundException;
 use RingCaptcha\AppLookup\Exception\RuntimeException;
@@ -23,25 +21,8 @@ use Symfony\Component\DomCrawler\Crawler;
  *
  * @author Diego Saint Esteben <diego@ringcaptcha.com>
  */
-class GoogleProvider implements ProviderInterface
+class GoogleProvider extends CurlProvider
 {
-    const ENDPOINT = 'https://play.google.com/store/apps/details';
-
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * Constructor.
-     *
-     * @param ClientInterface|null $client A ClientInterface instance or null.
-     */
-    public function __construct(ClientInterface $client = null)
-    {
-        $this->client = $client ?: new Client();
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -51,17 +32,17 @@ class GoogleProvider implements ProviderInterface
             throw new RuntimeException('symfony/dom-crawler is required.');
         }
 
-        $response = $this->client->get(self::ENDPOINT, array(
-            'query' => array('id' => $id)
-        ));
+        $url = sprintf('https://play.google.com/store/apps/details?id=%s', $id);
 
-        if (404 === $response->getStatusCode()) {
+        $response = $this->exec($url);
+
+        if (404 === $this->getInfo(CURLINFO_HTTP_CODE)) {
             throw new NotFoundException($id);
         }
 
-        $body = (string) $response->getBody();
+        $this->close();
 
-        $crawler = new Crawler($body);
+        $crawler = new Crawler($response);
 
         $name = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-title ')]/descendant::div")->text();
         $owner = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-subtitle ') and (contains(concat(' ', normalize-space(@class), ' '), ' primary '))]/descendant::span")->text();

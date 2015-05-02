@@ -11,8 +11,6 @@
 
 namespace RingCaptcha\AppLookup\Provider;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use RingCaptcha\AppLookup\AppInfo;
 use RingCaptcha\AppLookup\Exception\NotFoundException;
 
@@ -21,35 +19,24 @@ use RingCaptcha\AppLookup\Exception\NotFoundException;
  *
  * @author Diego Saint Esteben <diego@ringcaptcha.com>
  */
-class AppleProvider implements ProviderInterface
+class AppleProvider extends CurlProvider
 {
-    const ENDPOINT = 'https://itunes.apple.com/lookup';
-
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * Constructor.
-     *
-     * @param ClientInterface|null $client A ClientInterface instance or null.
-     */
-    public function __construct(ClientInterface $client = null)
-    {
-        $this->client = $client ?: new Client();
-    }
-
     /**
      * {@inheritdoc}
      */
     public function lookup($id)
     {
-        $response = $this->client->get(self::ENDPOINT, array(
-            'query' => array('id' => $id)
-        ));
+        $url = sprintf('https://itunes.apple.com/lookup?id=%s', $id);
 
-        $data = $response->json();
+        $options = array(
+            CURLOPT_FAILONERROR => true,
+        );
+
+        $response = $this->exec($url, $options);
+
+        $this->close();
+
+        $data = json_decode($response, true);
 
         if (0 === $data['resultCount']) {
             throw new NotFoundException($id);

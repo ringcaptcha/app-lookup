@@ -11,11 +11,7 @@
 
 namespace RingCaptcha\AppLookup\Tests\Provider;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Subscriber\Mock;
-use RingCaptcha\AppLookup\Provider\AppleProvider;
+use RingCaptcha\AppLookup\Exception\NotFoundException;
 
 class AppleProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,30 +28,36 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLookupWithInexistentApp()
     {
-        $client = new Client();
+        $providerMock = $this->getMockBuilder('RingCaptcha\AppLookup\Provider\AppleProvider')
+            ->setMethods(array('exec'))
+            ->getMock()
+        ;
 
-        $responseMock = new Mock([
-            new Response(200, array(), Stream::factory(file_get_contents(self::$fixturesPath.'/json/response0.json'))),
-        ]);
+        $providerMock
+            ->expects($this->once())
+            ->method('exec')
+            ->with($this->equalTo('https://itunes.apple.com/lookup?id=com.mycompany.myapp'), $this->anything())
+            ->willReturn(file_get_contents(self::$fixturesPath.'/json/response0.json'))
+        ;
 
-        $client->getEmitter()->attach($responseMock);
-
-        $provider = new AppleProvider($client);
-        $provider->lookup('com.mycompany.myapp');
+        $providerMock->lookup('com.mycompany.myapp');
     }
 
     public function testLookupWithExistentApp()
     {
-        $client = new Client();
+        $providerMock = $this->getMockBuilder('RingCaptcha\AppLookup\Provider\AppleProvider')
+            ->setMethods(array('exec'))
+            ->getMock()
+        ;
 
-        $responseMock = new Mock([
-            new Response(200, array(), Stream::factory(file_get_contents(self::$fixturesPath.'/json/response1.json'))),
-        ]);
+        $providerMock
+            ->expects($this->once())
+            ->method('exec')
+            ->with($this->equalTo('https://itunes.apple.com/lookup?id=net.whatsapp.WhatsApp'), $this->anything())
+            ->willReturn(file_get_contents(self::$fixturesPath.'/json/response1.json'))
+        ;
 
-        $client->getEmitter()->attach($responseMock);
-
-        $provider = new AppleProvider($client);
-        $app = $provider->lookup('net.whatsapp.WhatsApp');
+        $app = $providerMock->lookup('net.whatsapp.WhatsApp');
 
         $this->assertEquals('net.whatsapp.WhatsApp', $app->getId());
         $this->assertEquals('WhatsApp Messenger', $app->getName());
