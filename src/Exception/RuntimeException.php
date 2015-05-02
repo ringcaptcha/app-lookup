@@ -12,14 +12,10 @@
 namespace RingCaptcha\AppLookup\Exception;
 
 /**
- * This exception is thrown when an app is not found.
+ * This exception is thrown when an error that can only be found on runtime occurs.
  *
  * @author Diego Saint Esteben <diego@ringcaptcha.com>
  */
-class NotFoundException extends RuntimeException implements ExceptionInterface
+class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
-    public function __construct($id)
-    {
-        parent::__construct(sprintf('Unable to found the "%s" app.', $id));
-    }
 }

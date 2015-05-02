@@ -15,6 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use RingCaptcha\AppLookup\AppInfo;
 use RingCaptcha\AppLookup\Exception\NotFoundException;
+use RingCaptcha\AppLookup\Exception\RuntimeException;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -46,6 +47,10 @@ class GoogleProvider implements ProviderInterface
      */
     public function lookup($id)
     {
+        if (!class_exists('Symfony\Component\DomCrawler\Crawler')) {
+            throw new RuntimeException('symfony/dom-crawler is required.');
+        }
+
         $response = $this->client->get(self::ENDPOINT, array(
             'query' => array('id' => $id)
         ));
