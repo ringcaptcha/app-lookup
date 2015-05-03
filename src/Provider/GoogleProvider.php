@@ -47,9 +47,9 @@ class GoogleProvider extends CurlProvider
         $name = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-title ')]/descendant::div")->text();
         $owner = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-subtitle ') and (contains(concat(' ', normalize-space(@class), ' '), ' primary '))]/descendant::span")->text();
         $description = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' id-app-orig-desc ')]")->text();
-        $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' details-section ') and (contains(concat(' ', normalize-space(@class), ' '), ' screenshots '))]/descendant::*[contains(concat(' ', normalize-space(@class), ' '), ' screenshot-container ')]/descendant::img")->each(function ($node, $i) {
+        $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' details-section ') and (contains(concat(' ', normalize-space(@class), ' '), ' screenshots '))]/descendant::*[contains(concat(' ', normalize-space(@class), ' '), ' screenshot-container ')]/descendant::img")->reduce(function ($node, $i) {
             if (0 === $i) {
-                return;
+                return false;
             }
             return $node->attr('src');
         });
