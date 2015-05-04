@@ -47,12 +47,13 @@ class GoogleProvider extends CurlProvider
         $name = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-title ')]/descendant::div")->text();
         $owner = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-subtitle ') and (contains(concat(' ', normalize-space(@class), ' '), ' primary '))]/descendant::span")->text();
         $description = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' id-app-orig-desc ')]")->text();
-        $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' details-section ') and (contains(concat(' ', normalize-space(@class), ' '), ' screenshots '))]/descendant::*[contains(concat(' ', normalize-space(@class), ' '), ' screenshot-container ')]/descendant::img")->reduce(function ($node, $i) {
+        $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' details-section ') and (contains(concat(' ', normalize-space(@class), ' '), ' screenshots '))]/descendant::*[contains(concat(' ', normalize-space(@class), ' '), ' screenshot-container ')]/descendant::img")->each(function ($node, $i) {
             if (0 === $i) {
-                return false;
+                return;
             }
             return $node->attr('src');
         });
+        $screenshots = array_filter($screenshots);
         $tags = array_map('strtolower', (array) $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-subtitle ') and (contains(concat(' ', normalize-space(@class), ' '), ' category '))]/descendant::span")->text());
         $cover = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' details-info ')]/descendant::*[contains(concat(' ', normalize-space(@class), ' '), ' cover-container ')]/descendant::img")->attr('src');
         
