@@ -26,7 +26,7 @@ class AppleProvider extends CurlProvider
      */
     public function lookup($id)
     {
-        $url = sprintf('https://itunes.apple.com/lookup?id=%1$s&bundleId=%1$s', $id);
+        $url = sprintf('https://itunes.apple.com/lookup?id=%s', $id);
 
         $options = array(
             CURLOPT_FAILONERROR => true,
