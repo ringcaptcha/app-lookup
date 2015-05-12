@@ -24,7 +24,7 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RingCaptcha\AppLookup\Exception\NotFoundException
-     * @expectedExceptionMessage Unable to found the "com.mycompany.myapp" app.
+     * @expectedExceptionMessage Unable to found the "000000000" app.
      */
     public function testLookupWithInexistentApp()
     {
@@ -36,11 +36,11 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
         $providerMock
             ->expects($this->once())
             ->method('exec')
-            ->with($this->equalTo('https://itunes.apple.com/lookup?id=com.mycompany.myapp&bundleId=com.mycompany.myapp'), $this->anything())
+            ->with($this->equalTo('https://itunes.apple.com/lookup?id=000000000'), $this->anything())
             ->willReturn(file_get_contents(self::$fixturesPath.'/json/response0.json'))
         ;
 
-        $providerMock->lookup('com.mycompany.myapp');
+        $providerMock->lookup('000000000');
     }
 
     public function testLookupWithExistentApp()
@@ -53,13 +53,13 @@ class AppleProviderTest extends \PHPUnit_Framework_TestCase
         $providerMock
             ->expects($this->once())
             ->method('exec')
-            ->with($this->equalTo('https://itunes.apple.com/lookup?id=net.whatsapp.WhatsApp&bundleId=net.whatsapp.WhatsApp'), $this->anything())
+            ->with($this->equalTo('https://itunes.apple.com/lookup?id=310633997'), $this->anything())
             ->willReturn(file_get_contents(self::$fixturesPath.'/json/response1.json'))
         ;
 
-        $app = $providerMock->lookup('net.whatsapp.WhatsApp');
+        $app = $providerMock->lookup('310633997');
 
-        $this->assertEquals('net.whatsapp.WhatsApp', $app->getId());
+        $this->assertEquals('310633997', $app->getId());
         $this->assertEquals('WhatsApp Messenger', $app->getName());
         $this->assertEquals('WhatsApp Inc.', $app->getOwner());
         $this->assertEquals('http://is2.mzstatic.com/image/pf/us/r30/Purple5/v4/70/fe/f6/70fef6d6-2a32-ea81-18d9-b58f2e50a0ce/mzl.gskvkfhf.png', $app->getBrand());
