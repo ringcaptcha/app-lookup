@@ -81,4 +81,9 @@ class AppInfo implements \Serializable
     {
         list($this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots) = unserialize($data);
     }
+
+    public function __toString() 
+    {
+        return $this->serialize();
+    }
 }
