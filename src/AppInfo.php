@@ -25,8 +25,9 @@ class AppInfo implements \Serializable
     private $brand;
     private $tags;
     private $screenshots;
+    private $platform;
 
-    public function __construct($id, $name, $owner, $description = null, $brand = null, array $tags = array(), array $screenshots = array())
+    public function __construct($id, $name, $owner, $description = null, $brand = null, array $tags = array(), array $screenshots = array(), $platform = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -35,6 +36,7 @@ class AppInfo implements \Serializable
         $this->brand = $brand;
         $this->tags = $tags;
         $this->screenshots = $screenshots;
+        $this->platform = $platform;
     }
 
     public function getId()
@@ -72,14 +74,19 @@ class AppInfo implements \Serializable
         return $this->screenshots;
     }
 
+    public function getPlatform()
+    {
+        return $this->platform;
+    }
+
     public function serialize()
     {
-        return serialize(array($this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots));
+        return serialize(array($this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots, $this->platform));
     }
 
     public function unserialize($data)
     {
-        list($this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots) = unserialize($data);
+        list($this->id, $this->name, $this->owner, $this->description, $this->brand, $this->tags, $this->screenshots, $this->platform) = unserialize($data);
     }
 
     public function __toString() 

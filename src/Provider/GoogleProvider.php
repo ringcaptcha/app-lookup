@@ -57,6 +57,6 @@ class GoogleProvider extends CurlProvider
         $tags = array_map('strtolower', (array) $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' document-subtitle ') and (contains(concat(' ', normalize-space(@class), ' '), ' category '))]/descendant::span")->text());
         $cover = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' details-info ')]/descendant::*[contains(concat(' ', normalize-space(@class), ' '), ' cover-container ')]/descendant::img")->attr('src');
         
-        return new AppInfo($id, $name, $owner, $description, $cover, $tags, $screenshots);
+        return new AppInfo($id, $name, $owner, $description, $cover, $tags, $screenshots, 'Android');
     }
 }

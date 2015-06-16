@@ -44,6 +44,6 @@ class AppleProvider extends CurlProvider
 
         $data = $data['results'][0];
 
-        return new AppInfo($id, $data['trackName'], $data['sellerUrl'], $data['description'], $data['artworkUrl512'], array_map('strtolower', $data['genres']), $data['screenshotUrls']);
+        return new AppInfo($id, $data['trackName'], $data['sellerUrl'], $data['description'], $data['artworkUrl512'], array_map('strtolower', $data['genres']), $data['screenshotUrls'], 'iOS');
     }
 }
