@@ -24,7 +24,7 @@ class AppInfoTest extends \PHPUnit_Framework_TestCase
 
     public function testGetters()
     {
-        $app = new AppInfo('com.mycompany.myapp', 'MyApp', 'MyCompany', 'Lorem ipsum dolor sit amet.', 'http//myapp.com/logo.png');
+        $app = new AppInfo('com.mycompany.myapp', 'MyApp', 'MyCompany', 'Lorem ipsum dolor sit amet.', 'http//myapp.com/logo.png', [], [], AppInfo::PLATFORM_IOS);
 
         $this->assertEquals('com.mycompany.myapp', $app->getId());
         $this->assertEquals('MyApp', $app->getName());
@@ -33,5 +33,6 @@ class AppInfoTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http//myapp.com/logo.png', $app->getBrand());
         $this->assertEquals(array(), $app->getTags());
         $this->assertEquals(array(), $app->getScreenshots());
+        $this->assertEquals(AppInfo::PLATFORM_IOS, $app->getPlatform());
     }
 }

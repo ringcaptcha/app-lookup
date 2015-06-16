@@ -27,6 +27,9 @@ class AppInfo implements \Serializable
     private $screenshots;
     private $platform;
 
+    const PLATFORM_IOS = "iOS";
+    const PLATFORM_ANDROID = "Android";
+
     public function __construct($id, $name, $owner, $description = null, $brand = null, array $tags = array(), array $screenshots = array(), $platform = null)
     {
         $this->id = $id;
