@@ -31,7 +31,7 @@ class AppInfoTest extends \PHPUnit_Framework_TestCase
 
     public function testGetters()
     {
-        $app = new AppInfo('com.mycompany.myapp', 'MyApp', 'MyCompany', 'Lorem ipsum dolor sit amet.', 'http//myapp.com/logo.png', [], [], AppInfo::PLATFORM_IOS);
+        $app = new AppInfo('com.mycompany.myapp', 'MyApp', 'MyCompany', 'Lorem ipsum dolor sit amet.', 'http//myapp.com/logo.png', array(), array(), AppInfo::PLATFORM_IOS);
 
         $this->assertEquals('com.mycompany.myapp', $app->getId());
         $this->assertEquals('MyApp', $app->getName());
