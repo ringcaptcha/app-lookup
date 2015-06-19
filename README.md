@@ -27,5 +27,5 @@ Then, run the test suite using [PHPUnit](http://phpunit.de/):
 License
 -------
 
-This library is released under the MIT License. See the bundled LICENSE file for
+This library is released under the Apache 2.0 license. See the bundled LICENSE file for
 details.
