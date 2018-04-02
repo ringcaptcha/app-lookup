@@ -51,7 +51,7 @@ class GoogleProvider extends CurlProvider
 
         $crawler = new Crawler($response);
 
-        $name = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@itemprop), ' '), ' name ')]/descendant::span")->text(); //TODO Delete
+        $name = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@itemprop), ' '), ' name ')]/descendant::span")->text();
         $owner = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' hrTbp ')]")->text();
         $description = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@itemprop), ' '), ' description ')]/descendant::div")->text();
         $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' KDxLi ')]/descendant::img[contains(concat(' ', normalize-space(@itemprop), ' '), ' image ')]")->each(function ($node, $i) {
