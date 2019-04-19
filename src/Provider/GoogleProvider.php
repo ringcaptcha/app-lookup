@@ -54,7 +54,7 @@ class GoogleProvider extends CurlProvider
         $name = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@itemprop), ' '), ' name ')]/descendant::span")->text();
         $owner = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' hrTbp ')]")->text();
         $description = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@itemprop), ' '), ' description ')]/descendant::div")->text();
-        $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' KDxLi ')]/descendant::img[contains(concat(' ', normalize-space(@itemprop), ' '), ' image ')]")->each(function ($node, $i) {
+        $screenshots = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' Q4vdJd ')]/descendant::img[contains(concat(' ', normalize-space(@itemprop), ' '), ' image ')]")->each(function ($node, $i) {
             if (0 === $i) {
                 return;
             }
@@ -63,7 +63,7 @@ class GoogleProvider extends CurlProvider
         });
         $screenshots = array_filter($screenshots);
         $tags = array_map('strtolower', (array) $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@itemprop), ' '), ' genre ')]")->text());
-        $cover = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' dQrBL ')]/descendant::img[contains(concat(' ', normalize-space(@itemprop), ' '), ' image ')]")->attr('src');
+        $cover = $crawler->filterXpath("descendant-or-self::*[contains(concat(' ', normalize-space(@class), ' '), ' xSyT2c ')]/descendant::img[contains(concat(' ', normalize-space(@itemprop), ' '), ' image ')]")->attr('src');
 
         return new AppInfo($id, $name, $owner, $description, $cover, $tags, $screenshots, AppInfo::PLATFORM_ANDROID);
     }
